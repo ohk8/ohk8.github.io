@@ -33,7 +33,10 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-
+            
+      - name: Create 404.html from index.html
+        run: cp out/index.html out/404.html
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
