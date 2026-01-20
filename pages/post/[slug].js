@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 
 const notion = new NotionAPI();
 
@@ -57,69 +59,41 @@ export default function Post({ recordMap }) {
     if (!recordMap) return null;
 
     return (
-        <div className="post-page">
-            <nav className="fixed-nav">
-                <button onClick={() => router.back()} className="back-btn">
-                    <span className="arrow">←</span>
-                    <span className="text">뒤로가기</span>
+        <div className="bg-white min-h-screen">
+            <Header />
+            <nav className="sticky top-0 z-[100] px-8 py-6 bg-white/80 backdrop-blur-md max-w-[1000px] mx-auto w-full">
+                <button onClick={() => router.back()} className="flex items-center gap-2 bg-transparent border-none p-2 rounded-lg cursor-pointer font-semibold text-slate-900 transition-all hover:bg-slate-100 hover:-translate-x-1 -ml-4">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span>Back</span>
                 </button>
             </nav>
 
-            <NotionRenderer
-                recordMap={recordMap}
-                fullPage={true}
-                darkMode={false}
-                disableHeader={true}
-                components={{
-                    nextImage: Image,
-                    nextLink: Link,
-                    Code,
-                    Collection
-                }}
-            />
-            <style jsx global>{`
-        .fixed-nav {
-          position: fixed;
-          top: 30px;
-          left: calc(50% - 480px); 
-          z-index: 9999; 
-        }
+            <main className="max-w-[1000px] mx-auto pb-16">
+                <div className="prose prose-slate prose-lg max-w-none px-8
+                    prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-slate-900
+                    prose-p:text-slate-600 prose-p:leading-relaxed
+                    prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+                    prose-pre:bg-slate-900 prose-pre:text-slate-100 prose-pre:rounded-xl
+                    prose-img:rounded-2xl prose-img:shadow-xl">
+                    <NotionRenderer
+                        recordMap={recordMap}
+                        fullPage={true}
+                        darkMode={false}
+                        disableHeader={true}
+                        components={{
+                            nextImage: Image,
+                            nextLink: Link,
+                            Code,
+                            Collection
+                        }}
+                    />
+                </div>
+            </main>
 
-        .back-btn {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          background: white;
-          border: 1px solid #e9ecef;
-          padding: 8px 16px;
-          border-radius: 20px;
-          cursor: pointer;
-          font-weight: 600;
-          color: #495057;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-          transition: all 0.2s ease;
-        }
-
-        .back-btn:hover {
-          background: #f8f9fa;
-          transform: translateX(-5px);
-          color: #868e96;
-        }
-
-        @media (max-width: 1000px) {
-          .fixed-nav {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-          }
-          .back-btn .text { display: none; } 
-        }
-
-        .notion-page {
-          padding-top: 50px !important;
-        }
-
-`}</style>
+            <Footer />
         </div>
     );
 }
