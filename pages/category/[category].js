@@ -49,7 +49,7 @@ export default function CategoryPage({ posts, currentCategory, categories }) {
                                 <div className="flex flex-col h-full">
                                     <div className="text-xs font-bold uppercase text-blue-500 mb-3 tracking-widest">{post.category || "Article"}</div>
                                     <h3 className="text-2xl font-bold mb-4 text-slate-900 leading-tight">{post.title}</h3>
-                                    <p className="text-base text-slate-600 leading-relaxed mb-6 line-clamp-3">{post.excerpt || "Click to read more about this post..."}</p>
+                                    <p className="text-base text-slate-600 leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
                                     <div className="mt-auto flex justify-between items-center text-sm text-slate-400">
                                         <span>{post.date}</span>
                                         <span className="font-semibold text-slate-900">Read More →</span>
