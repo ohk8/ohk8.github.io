@@ -1,25 +1,26 @@
-import { getDatabase } from "../lib/notion";
+import { getDatabase, getCategories } from "../lib/notion";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 export async function getStaticProps() {
     const posts = await getDatabase();
+    const categories = await getCategories();
     return {
-        props: { posts },
+        props: { posts, categories },
     };
 }
-export default function Home({ posts }) {
+export default function Home({ posts, categories }) {
     return (
-        <div className="max-w-[1000px] mx-auto">
-            <Header />
+        <div className="bg-white min-h-screen flex flex-col">
+            <Header categories={categories} />
 
-            <main>
+            <main className="max-w-[900px] w-full mx-auto px-8 flex-grow">
                 <section className="py-16 text-center">
                     <h1 className="text-6xl font-extrabold mb-4 tracking-tighter text-slate-900 max-md:text-4xl">Thoughts, stories and ideas.</h1>
                 </section>
 
-                <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-12 mb-24 max-md:grid-cols-1">
+                <div className="flex flex-col gap-12 mb-24">
                     {posts.map((post) => (
                         <Link href={`/post/${post.slug}`} key={post.id} className="no-underline text-inherit flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.2,0,0.2,1)] hover:-translate-y-1">
                             <div className="flex flex-col h-full">
